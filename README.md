@@ -23,6 +23,7 @@
 - [ ] 集成Redis
 - [ ] 集成RabbitMQ
 - [ ] 集成xxl-job
+- [ ] Elasticsearch
 
 ## 问题
 

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import javax.validation.Valid;
+
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -34,8 +34,8 @@ public class AuthTokenController {
     @RequestLog(func = "获取token")
     @ApiOperation( value = "获取token")
     @GetMapping("/token")
-    public BaseResult<TokenInfo> token(@Valid @NotBlank(message = "client不能为空") @RequestParam("client") String client,
-                                       @Valid @NotBlank(message = "secret不能为空") @RequestParam("secret") String secret){
+    public BaseResult<TokenInfo> token(@NotBlank(message = "client不能为空") @RequestParam("client") String client,
+                                       @NotBlank(message = "secret不能为空") @RequestParam("secret") String secret){
         BaseResult<TokenInfo> result = BaseResult.success();
         try {
             TokenInfo tokenInfo = authClientService.genToken(client, secret);

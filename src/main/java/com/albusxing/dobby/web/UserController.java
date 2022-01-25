@@ -71,7 +71,7 @@ public class UserController {
     @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token")
     @PutMapping("/users/{userId}")
     @RequestLog(func = "用户修改")
-    public BaseResult<Void> update(@Valid @NotNull(message = "用户id不能为空") @PathVariable("userId") Long userId,
+    public BaseResult<Void> update(@NotNull(message = "用户id不能为空") @PathVariable("userId") Long userId,
                                    @Valid @RequestBody UserReq userReq,
                                    @ApiIgnore @AuthInfo AuthClient authClient) {
         log.info("用户管理 -> 修改，authClient={}", JSON.toJSONString(authClient));
@@ -116,7 +116,7 @@ public class UserController {
     @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token")
     @GetMapping("/users/{userId}")
     @RequestLog(func = "用户详情")
-    public BaseResult<UserResp> get(@Valid @NotNull(message = "id不能为空") @PathVariable("userId") Long userId,
+    public BaseResult<UserResp> get(@NotNull(message = "id不能为空") @PathVariable("userId") Long userId,
                                 @ApiIgnore @AuthInfo AuthClient authClient) {
         log.info("用户管理 -> 详情，authClient={}", JSON.toJSONString(authClient));
         BaseResult<UserResp> baseResult = BaseResult.success();
@@ -135,7 +135,7 @@ public class UserController {
     @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token")
     @DeleteMapping("/users/{userId}")
     @RequestLog(func = "用户删除")
-    public BaseResult<Void> delete(@Valid @NotNull(message = "id不能为空") @PathVariable("userId") Long userId,
+    public BaseResult<Void> delete(@NotNull(message = "id不能为空") @PathVariable("userId") Long userId,
                                    @ApiIgnore @AuthInfo AuthClient authClient) {
         log.info("用户管理 -> 删除，authClient={}", JSON.toJSONString(authClient));
         BaseResult<Void> baseResult = BaseResult.success();
