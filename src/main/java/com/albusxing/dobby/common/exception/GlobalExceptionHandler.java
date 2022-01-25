@@ -67,4 +67,10 @@ public class GlobalExceptionHandler {
         return BaseResult.fail(authException.getCode(), authException.getMessage());
     }
 
+
+    @ExceptionHandler(Exception.class)
+    public BaseResult<?> serviceExceptionHandle(Exception exception) {
+        return BaseResult.fail(exception.getMessage());
+    }
+
 }

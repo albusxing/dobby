@@ -1,5 +1,6 @@
 package com.albusxing.dobby.web;
 
+import com.albusxing.dobby.common.annotation.RequestLog;
 import com.albusxing.dobby.common.base.BaseResult;
 import com.albusxing.dobby.common.constant.ResultCodeEnum;
 import com.albusxing.dobby.dto.TokenInfo;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -30,13 +31,14 @@ public class AuthTokenController {
     private final AuthClientService authClientService;
 
 
+    @RequestLog(func = "获取token")
     @ApiOperation( value = "获取token")
     @GetMapping("/token")
-    public BaseResult<TokenInfo> token(@NotBlank(message = "code不能为空") @RequestParam("code") String code,
-                                       @NotBlank(message = "secret不能为空") @RequestParam("secret") String secret){
+    public BaseResult<TokenInfo> token(@Valid @NotBlank(message = "client不能为空") @RequestParam("client") String client,
+                                       @Valid @NotBlank(message = "secret不能为空") @RequestParam("secret") String secret){
         BaseResult<TokenInfo> result = BaseResult.success();
         try {
-            TokenInfo tokenInfo = authClientService.genToken(code, secret);
+            TokenInfo tokenInfo = authClientService.genToken(client, secret);
             return BaseResult.success(tokenInfo);
         } catch (Exception e) {
             result.setCode(ResultCodeEnum.FAIL.getCode());

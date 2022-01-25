@@ -6,6 +6,7 @@ import lombok.Data;
 
 /**
  * 通用返回结构
+ * @author liguoqing
  * @param <T>
  */
 @Data

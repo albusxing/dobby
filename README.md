@@ -24,3 +24,8 @@
 - [ ] 集成RabbitMQ
 - [ ] 集成xxl-job
 
+## 问题
+
+Q：添加 mapstruct之后，无法识别 lombok注解，怎么办？
+A：参考：https://mapstruct.org/documentation/stable/reference/html/#lombok
+

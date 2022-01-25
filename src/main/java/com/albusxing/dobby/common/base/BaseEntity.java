@@ -16,7 +16,7 @@ public class BaseEntity implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-    protected Integer status;
-    protected LocalDateTime createTime;
-    protected LocalDateTime updateTime;
+    protected Integer status = 0;
+    protected LocalDateTime createTime = LocalDateTime.now();
+    protected LocalDateTime updateTime = LocalDateTime.now();
 }

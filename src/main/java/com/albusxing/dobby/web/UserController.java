@@ -36,7 +36,7 @@ import java.util.List;
 @Validated
 @Api(tags = "用户管理")
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -50,11 +50,11 @@ public class UserController {
      */
     @ApiOperation(value = "新增")
     @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token")
-    @PostMapping("/save")
+    @PostMapping("/users")
     @RequestLog(func = "用户新增")
     public BaseResult<Void> save(@Valid @RequestBody UserReq userReq,
                                  @ApiIgnore @AuthInfo AuthClient authClient) {
-        log.info("用户管理-信息，authClient={}", JSON.toJSONString(authClient));
+        log.info("用户管理 -> 新增，authClient={}", JSON.toJSONString(authClient));
         BaseResult<Void> baseResult = BaseResult.success();
         try {
             userService.save(userReq);
@@ -69,9 +69,12 @@ public class UserController {
 
     @ApiOperation(value = "修改")
     @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token")
-    @PutMapping("/update")
-    public BaseResult<Void> update(@NotNull(message = "用户id不能为空") @RequestParam("userId") Long userId,
-                                   @Validated @RequestBody UserReq userReq) {
+    @PutMapping("/users/{userId}")
+    @RequestLog(func = "用户修改")
+    public BaseResult<Void> update(@Valid @NotNull(message = "用户id不能为空") @PathVariable("userId") Long userId,
+                                   @Valid @RequestBody UserReq userReq,
+                                   @ApiIgnore @AuthInfo AuthClient authClient) {
+        log.info("用户管理 -> 修改，authClient={}", JSON.toJSONString(authClient));
         BaseResult<Void> baseResult = BaseResult.success();
         try {
             userService.update(userId, userReq);
@@ -90,10 +93,13 @@ public class UserController {
             @ApiImplicitParam(name = "pageNo", value = "当前页,从1开始", defaultValue = "1"),
             @ApiImplicitParam(name = "pageSize", value = "每页数量", defaultValue = "10")
     })
-    @GetMapping("/list")
+    @GetMapping("/users")
+    @RequestLog(func = "用户查询")
     public BaseResult<BasePage<UserResp>> list(@RequestParam(value = "username", required = false) String username,
                                                @RequestParam(value = "pageNo", defaultValue = "1") Long pageNo,
-                                               @RequestParam(value = "pageSize", defaultValue = "10") Long pageSize) {
+                                               @RequestParam(value = "pageSize", defaultValue = "10") Long pageSize,
+                                               @ApiIgnore @AuthInfo AuthClient authClient) {
+        log.info("用户管理 -> 查询，authClient={}", JSON.toJSONString(authClient));
         BaseResult<BasePage<UserResp>> baseResult = BaseResult.success();
         try {
             Page<User> page = new Page<>(pageNo, pageSize);
@@ -108,11 +114,14 @@ public class UserController {
 
     @ApiOperation(value = "详情")
     @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token")
-    @GetMapping("/detail")
-    public BaseResult<User> get(@NotNull(message = "id不能为空") @RequestParam("id") Long id) {
-        BaseResult<User> baseResult = BaseResult.success();
+    @GetMapping("/users/{userId}")
+    @RequestLog(func = "用户详情")
+    public BaseResult<UserResp> get(@Valid @NotNull(message = "id不能为空") @PathVariable("userId") Long userId,
+                                @ApiIgnore @AuthInfo AuthClient authClient) {
+        log.info("用户管理 -> 详情，authClient={}", JSON.toJSONString(authClient));
+        BaseResult<UserResp> baseResult = BaseResult.success();
         try {
-            User user = userService.getById(id);
+            UserResp user = userService.getUserResp(userId);
             return BaseResult.success(user);
         } catch (Exception e) {
             baseResult.setCode(ResultCodeEnum.FAIL.getCode());
@@ -124,13 +133,16 @@ public class UserController {
 
     @ApiOperation(value = "删除")
     @ApiImplicitParam(paramType = "header", name = "token", dataType = "String", required = true, value = "token")
-    @DeleteMapping("/{id}")
-    public BaseResult<Void> delete(@NotNull(message = "id不能为空") @PathVariable("id") Long id) {
+    @DeleteMapping("/users/{userId}")
+    @RequestLog(func = "用户删除")
+    public BaseResult<Void> delete(@Valid @NotNull(message = "id不能为空") @PathVariable("userId") Long userId,
+                                   @ApiIgnore @AuthInfo AuthClient authClient) {
+        log.info("用户管理 -> 删除，authClient={}", JSON.toJSONString(authClient));
         BaseResult<Void> baseResult = BaseResult.success();
         try {
             UpdateWrapper<User> updateWrapper = new UpdateWrapper<User>()
                     .set("status", DataStatusEnum.DELETED.getCode())
-                    .eq("id", id);
+                    .eq("id", userId);
             userService.update(updateWrapper);
             return BaseResult.success();
         } catch (Exception e) {

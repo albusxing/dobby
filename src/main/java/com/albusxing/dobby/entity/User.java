@@ -1,8 +1,8 @@
 package com.albusxing.dobby.entity;
+
 import com.albusxing.dobby.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * 用户信息

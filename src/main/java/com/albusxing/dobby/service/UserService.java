@@ -43,4 +43,11 @@ public interface UserService extends IService<User> {
      */
     User findByNameAndPwd(String username, String password);
 
+    /**
+     * 查询用户信息
+     * @param userId
+     * @return
+     */
+    UserResp getUserResp(Long userId);
+
 }

@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author liguoqing
+ */
 @Data
 @Builder
 public class BasePage<T> {

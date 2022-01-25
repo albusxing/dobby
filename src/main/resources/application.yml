@@ -1,9 +1,6 @@
-
 # 服务端口
 server:
   port: 9527
-  servlet:
-    context-path: /dobby
 
 spring:
   application:
