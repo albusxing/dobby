@@ -6,10 +6,7 @@ import com.albusxing.dobby.service.UserExcelService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @Api(tags = "Excel")
 @RestController
+@RequestMapping("/api/excel")
 @RequiredArgsConstructor
 public class ExcelController {
 
     private final UserExcelService userExcelService;
 
-    @PostMapping("/excel/import")
+    @PostMapping("/import")
     public BaseResult<UserImportResult> importData(@RequestParam(value = "file") MultipartFile file) {
         BaseResult<UserImportResult> baseResult = BaseResult.success();
         try {
@@ -40,7 +38,7 @@ public class ExcelController {
     }
 
 
-    @GetMapping("/excel/export")
+    @GetMapping("/export")
     public BaseResult<Void> exportData(HttpServletResponse response) {
         BaseResult<Void> baseResult = BaseResult.success();
         try {

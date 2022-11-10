@@ -1,10 +1,8 @@
 package com.albusxing.dobby.web.api;
-import com.albusxing.dobby.core.annotation.AuthInfo;
 import com.albusxing.dobby.core.annotation.RequestLog;
 import com.albusxing.dobby.common.base.BasePage;
 import com.albusxing.dobby.common.base.BaseResult;
 import com.albusxing.dobby.common.enums.ResultCodeEnum;
-import com.albusxing.dobby.domain.entity.AuthClient;
 import com.albusxing.dobby.dto.UserCmd;
 import com.albusxing.dobby.dto.UserQuery;
 import com.albusxing.dobby.dto.UserResp;
