@@ -3,6 +3,7 @@ package com.albusxing.dobby.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
@@ -25,6 +26,11 @@ public class UserCmd implements Serializable {
     @NotNull(message = "性别不能为空")
     private Integer gender;
 
+    /**
+     *  前端如果不加限制，用户随意输入。超过Integer最大值，会出现序列化错误
+     *  @NotBlank(message = "年龄不能为空")
+     *  @Length(max = 5, message = "年龄最多5")
+     */
     @ApiModelProperty(value = "年龄")
     @NotNull(message = "年龄不能为空")
     @Range(min = 1, max = 100, message = "年龄在1~100之内")

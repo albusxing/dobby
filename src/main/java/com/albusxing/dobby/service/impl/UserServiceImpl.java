@@ -8,6 +8,7 @@ import com.albusxing.dobby.dto.UserCmd;
 import com.albusxing.dobby.dto.UserQuery;
 import com.albusxing.dobby.dto.UserResp;
 import com.albusxing.dobby.domain.entity.User;
+import com.albusxing.dobby.excel.UserImportData;
 import com.albusxing.dobby.service.UserService;
 import com.albusxing.dobby.service.converter.UserConverter;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -95,5 +96,11 @@ public class UserServiceImpl implements UserService {
     public UserResp getUserDetail(Long userId) {
         User user = userDAO.getById(userId);
         return userConverter.toUserResp(user);
+    }
+
+    @Override
+    public void batchSave(List<UserImportData> importDataList) {
+        List<User> users = userConverter.toUsers(importDataList);
+        userDAO.saveBatch(users);
     }
 }

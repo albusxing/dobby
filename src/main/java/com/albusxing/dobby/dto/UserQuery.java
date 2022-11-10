@@ -30,13 +30,14 @@ public class UserQuery extends BaseQuery {
     @ApiModelProperty("开始时间")
 //    @JSONField(format="yyyy-MM-dd HH:mm:ss")
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss", iso = DateTimeFormat.ISO.DATE_TIME)
+//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss", iso = DateTimeFormat.ISO.DATE_TIME)
     private Date startDate;
 
 
+    /**
+     * 1、通过添加 @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")，将前端传的字符串类型日期转换成Date类型
+     * 2、通过添加 @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")，将服务端的日期转换成字符串类型
+     */
     @ApiModelProperty("结束时间")
-//    @JSONField(format="yyyy-MM-dd HH:mm:ss")
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss", iso = DateTimeFormat.ISO.DATE_TIME)
     private Date endDate;
 }

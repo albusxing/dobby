@@ -15,13 +15,15 @@ public class BaseBizException extends RuntimeException {
 
     private String errorMsg;
 
+    public BaseBizException(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
 
     public BaseBizException(Integer errorCode, String errorMsg) {
         super(errorMsg);
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
     }
-
 
     public BaseBizException(Integer errorCode, String errorMsg, Object... arguments) {
         super(MessageFormat.format(errorMsg, arguments));

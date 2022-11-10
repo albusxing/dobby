@@ -3,6 +3,7 @@ import com.albusxing.dobby.domain.entity.User;
 import com.albusxing.dobby.dto.UserCmd;
 import com.albusxing.dobby.dto.UserQuery;
 import com.albusxing.dobby.dto.UserResp;
+import com.albusxing.dobby.excel.UserImportData;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.util.List;
@@ -36,5 +37,7 @@ public interface UserService {
      * 用户详情
      */
     UserResp getUserDetail(Long userId);
+
+    void batchSave(List<UserImportData> importDataList);
 
 }

@@ -11,10 +11,10 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
-  jackson:
-    ### json反序列化日期的格式和时区
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+#  jackson:
+#    ### json反序列化日期的格式和时区
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: GMT+8
 
 # mybatis-plus
 mybatis-plus:
