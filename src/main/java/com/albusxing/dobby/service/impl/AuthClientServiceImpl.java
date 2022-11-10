@@ -1,12 +1,12 @@
 package com.albusxing.dobby.service.impl;
 
 
-import com.albusxing.dobby.common.constant.DataStatusEnum;
+import com.albusxing.dobby.common.enums.DataStatusEnum;
 import com.albusxing.dobby.dto.TokenInfo;
-import com.albusxing.dobby.entity.AuthClient;
-import com.albusxing.dobby.mapper.AuthClientMapper;
+import com.albusxing.dobby.domain.entity.AuthClient;
+import com.albusxing.dobby.domain.mapper.AuthClientMapper;
 import com.albusxing.dobby.service.AuthClientService;
-import com.albusxing.dobby.util.JwtTokenUtil;
+import com.albusxing.dobby.common.util.JwtTokenUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;

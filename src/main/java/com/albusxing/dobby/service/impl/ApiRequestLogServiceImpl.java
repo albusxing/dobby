@@ -1,8 +1,8 @@
 package com.albusxing.dobby.service.impl;
 
 
-import com.albusxing.dobby.entity.ApiRequestLog;
-import com.albusxing.dobby.mapper.ApiRequestLogMapper;
+import com.albusxing.dobby.domain.entity.ApiRequestLog;
+import com.albusxing.dobby.domain.mapper.ApiRequestLogMapper;
 import com.albusxing.dobby.service.ApiRequestLogService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.scheduling.annotation.Async;

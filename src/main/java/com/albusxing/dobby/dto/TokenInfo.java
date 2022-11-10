@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Data
 @Builder
-@ApiModel(value = "Token信息")
+@ApiModel(description = "Token信息")
 public class TokenInfo implements Serializable {
 
     @ApiModelProperty(value = "token")

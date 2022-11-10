@@ -1,7 +1,7 @@
 package com.albusxing.dobby.service;
 
 
-import com.albusxing.dobby.entity.ApiRequestLog;
+import com.albusxing.dobby.domain.entity.ApiRequestLog;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

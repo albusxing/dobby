@@ -1,7 +1,7 @@
 package com.albusxing.dobby.common.base;
 
 
-import com.albusxing.dobby.common.constant.ResultCodeEnum;
+import com.albusxing.dobby.common.enums.ResultCodeEnum;
 import lombok.Data;
 
 /**

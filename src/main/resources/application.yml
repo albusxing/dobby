@@ -7,12 +7,20 @@ spring:
     name: dobby
   profiles:
     active: dev
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  jackson:
+    ### json反序列化日期的格式和时区
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 # mybatis-plus
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package: com.albusxing.dobby.entity
+  type-aliases-package: com.albusxing.dobby.domain.entity
   global-config:
     #数据库相关配置
     db-config:
@@ -28,12 +36,13 @@ mybatis-plus:
     cache-enabled: false
     call-setters-on-nulls: true
     jdbc-type-for-null: 'null'
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
 # 日志
 logging:
   level:
-    com.albusxing.mapper: debug
+    com.albusxing.dobby: INFO
 
 jwt:
   token:
@@ -84,4 +93,6 @@ xxl:
       logretentiondays: 30
       ### 执行器端口号 [选填]：小于等于0则自动获取；默认端口为9999，单机部署多个执行器时，注意要配置不同执行器端口；
       port: 9999
+
+
 

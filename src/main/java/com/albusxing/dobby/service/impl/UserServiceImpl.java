@@ -1,15 +1,18 @@
 package com.albusxing.dobby.service.impl;
 
-import com.albusxing.dobby.common.constant.DataStatusEnum;
-import com.albusxing.dobby.dto.UserReq;
+import cn.hutool.core.lang.Validator;
+import cn.hutool.core.util.StrUtil;
+import com.albusxing.dobby.common.enums.DataStatusEnum;
+import com.albusxing.dobby.dao.UserDAO;
+import com.albusxing.dobby.dto.UserCmd;
+import com.albusxing.dobby.dto.UserQuery;
 import com.albusxing.dobby.dto.UserResp;
-import com.albusxing.dobby.entity.User;
-import com.albusxing.dobby.mapper.UserMapper;
+import com.albusxing.dobby.domain.entity.User;
 import com.albusxing.dobby.service.UserService;
-import com.albusxing.dobby.service.mapping.UserMapping;
+import com.albusxing.dobby.service.converter.UserConverter;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +20,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -26,48 +31,69 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserServiceImpl implements UserService {
 
-    private final UserMapping userMapping;
+    private final UserConverter userConverter;
+    private final UserDAO userDAO;
 
     @Override
-    public void save(UserReq userReq) {
-        User user = userMapping.toUser(userReq);
-        this.save(user);
+    public void save(UserCmd userCmd) {
+        User user = userConverter.toUser(userCmd);
+        userDAO.save(user);
     }
 
     @Override
-    public void update(Long userId, UserReq userReq) {
-        User user = this.getById(userId);
-        userMapping.updateToUser(userReq, user);
-        this.updateById(user);
+    public void update(Long userId, UserCmd userCmd) {
+        User user = userDAO.getById(userId);
+        Validator.validateNotNull(user, "用户数据不存在");
+        userConverter.updateToUser(userCmd, user);
+        userDAO.updateById(user);
     }
 
     @Override
-    public List<UserResp> list(String username, Page<User> page) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<User>()
-                .eq("status", DataStatusEnum.NORMAL.getCode())
-                .like(StringUtils.isNotEmpty(username), "username", username);
-        Page<User> pageResult = this.page(page, queryWrapper);
+    public void remove(Long userId) {
+        UpdateWrapper<User> updateWrapper = new UpdateWrapper<User>()
+                .set("status", DataStatusEnum.DELETED.getCode())
+                .eq("id", userId);
+        userDAO.update(updateWrapper);
+    }
+
+
+    @Override
+    public List<UserResp> list(UserQuery userQuery, Page<User> page) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        // 关键字
+        String keyword = userQuery.getKeyword();
+        queryWrapper.like(StringUtils.isNotEmpty(keyword), "username", keyword);
+        // 性别
+        Integer gender = userQuery.getGender();
+        if (Objects.nonNull(gender)) {
+            queryWrapper.eq("gender", gender);
+        }
+        // 地址
+        String address = userQuery.getAddress();
+        if (StrUtil.isNotBlank(address)) {
+            queryWrapper.like("address", address);
+        }
+        // 创建时间
+        Date startDate = userQuery.getStartDate();
+        Date endDate = userQuery.getEndDate();
+        if (Objects.nonNull(startDate) && Objects.nonNull(endDate)) {
+            queryWrapper.between("create_time", startDate, endDate);
+        }
+
+        Page<User> pageResult = userDAO.page(page, queryWrapper);
         List<User> records = pageResult.getRecords();
         if (CollectionUtils.isEmpty(records)) {
             return Lists.newArrayList();
         }
-        return records.stream().map(userMapping::toUserResp).collect(Collectors.toList());
+        return records.stream().map(userConverter::toUserResp).collect(Collectors.toList());
     }
 
-    @Override
-    public User findByNameAndPwd(String username, String password) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<User>()
-                .eq("status", DataStatusEnum.NORMAL.getCode())
-                .eq("username", username)
-                .eq("password", password);
-        return this.getOne(queryWrapper, false);
-    }
 
     @Override
-    public UserResp getUserResp(Long userId) {
-        User user = this.getById(userId);
-        return userMapping.toUserResp(user);
+    public UserResp getUserDetail(Long userId) {
+        User user = userDAO.getById(userId);
+        return userConverter.toUserResp(user);
     }
 }

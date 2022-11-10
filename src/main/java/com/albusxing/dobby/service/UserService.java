@@ -1,53 +1,40 @@
 package com.albusxing.dobby.service;
-
-
-import com.albusxing.dobby.dto.UserReq;
+import com.albusxing.dobby.domain.entity.User;
+import com.albusxing.dobby.dto.UserCmd;
+import com.albusxing.dobby.dto.UserQuery;
 import com.albusxing.dobby.dto.UserResp;
-import com.albusxing.dobby.entity.User;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
 /**
  * @author liguoqing
  */
-public interface UserService extends IService<User> {
+public interface UserService {
 
     /**
      * 新增
-     * @param userReq
      */
-    void save(UserReq userReq);
+    void save(UserCmd userCmd);
 
     /**
      * 修改
-     * @param userId
-     * @param userReq
      */
-    void update(Long userId, UserReq userReq);
+    void update(Long userId, UserCmd userCmd);
+
+    /**
+     * 删除
+     */
+    void remove(Long userId);
 
     /**
      * 查询
-     * @param username
-     * @param page
-     * @return
      */
-    List<UserResp> list(String username, Page<User> page);
+    List<UserResp> list(UserQuery userQuery, Page<User> page);
 
     /**
-     * 根据用户名和密码查询用户
-     * @param username
-     * @param password
-     * @return
+     * 用户详情
      */
-    User findByNameAndPwd(String username, String password);
-
-    /**
-     * 查询用户信息
-     * @param userId
-     * @return
-     */
-    UserResp getUserResp(Long userId);
+    UserResp getUserDetail(Long userId);
 
 }

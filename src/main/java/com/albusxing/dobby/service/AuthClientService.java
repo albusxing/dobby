@@ -2,7 +2,7 @@ package com.albusxing.dobby.service;
 
 
 import com.albusxing.dobby.dto.TokenInfo;
-import com.albusxing.dobby.entity.AuthClient;
+import com.albusxing.dobby.domain.entity.AuthClient;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

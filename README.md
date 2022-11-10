@@ -1,7 +1,7 @@
 # dobby
 > 一个微服务代码案例
 
-[dobby](./images/dobbyisfree.jpg)
+![dobby](doc/images/dobbyisfree.jpg)
 
 - Swagger地址：http://127.0.0.1:8090/dobby/swagger-ui/index.html
 
