@@ -57,17 +57,6 @@ public class GlobalExceptionHandler {
         return BaseResult.fail();
     }
 
-    /**
-     * 认证异常处理
-     * @param thirdAuthException
-     * @return
-     */
-    @ExceptionHandler(ThirdAuthException.class)
-    public BaseResult<?> authException(ThirdAuthException thirdAuthException) {
-        return BaseResult.fail(thirdAuthException.getCode(), thirdAuthException.getMessage());
-    }
-
-
     @ExceptionHandler(BaseBizException.class)
     public BaseResult<?> bizExceptionHandle(BaseBizException e) {
         return BaseResult.fail(e.getErrorMsg());

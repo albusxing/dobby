@@ -6,10 +6,13 @@ import com.albusxing.dobby.service.UserExcelService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Albusxing
@@ -35,4 +38,19 @@ public class ExcelController {
         }
         return baseResult;
     }
+
+
+    @GetMapping("/excel/export")
+    public BaseResult<Void> exportData(HttpServletResponse response) {
+        BaseResult<Void> baseResult = BaseResult.success();
+        try {
+            userExcelService.exportData(response);
+        } catch (Exception e) {
+            baseResult.setCode(ResultCodeEnum.FAIL.getCode());
+            baseResult.setMessage(e.getMessage());
+        }
+        return baseResult;
+    }
+
+
 }

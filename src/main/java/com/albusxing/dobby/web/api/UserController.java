@@ -104,6 +104,14 @@ public class UserController {
                                                  @RequestParam(value = "pageSize", defaultValue = "10") Long pageSize) {
         log.info("用户管理 -> 查询，keyword={}, pageNo={}, pageSize={}", keyword, pageNo, pageSize);
         BaseResult<BasePage<UserResp>> baseResult = BaseResult.success();
+        try {
+            Page<User> page = new Page<>(pageNo, pageSize);
+            List<UserResp> list = userService.list(keyword, page);
+            return BaseResult.success(BasePage.init(list, page.getTotal(), page.getCurrent(), page.getSize()));
+        } catch (Exception e) {
+            baseResult.setCode(ResultCodeEnum.FAIL.getCode());
+            baseResult.setMessage(e.getMessage());
+        }
         return baseResult;
     }
 

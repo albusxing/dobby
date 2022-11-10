@@ -33,11 +33,18 @@ public interface UserService {
      */
     List<UserResp> list(UserQuery userQuery, Page<User> page);
 
+    List<UserResp> list(String keyword, Page<User> page);
+
+    List<User> listAll();
+
     /**
      * 用户详情
      */
     UserResp getUserDetail(Long userId);
 
+    /**
+     * 批量保存
+     */
     void batchSave(List<UserImportData> importDataList);
 
 }

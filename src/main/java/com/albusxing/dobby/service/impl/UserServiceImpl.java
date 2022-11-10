@@ -91,6 +91,24 @@ public class UserServiceImpl implements UserService {
         return records.stream().map(userConverter::toUserResp).collect(Collectors.toList());
     }
 
+    @Override
+    public List<UserResp> list(String keyword, Page<User> page) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        // 关键字
+        queryWrapper.like(StringUtils.isNotEmpty(keyword), "username", keyword);
+        Page<User> pageResult = userDAO.page(page, queryWrapper);
+        List<User> records = pageResult.getRecords();
+        if (CollectionUtils.isEmpty(records)) {
+            return Lists.newArrayList();
+        }
+        return records.stream().map(userConverter::toUserResp).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<User> listAll() {
+        return userDAO.list();
+    }
 
     @Override
     public UserResp getUserDetail(Long userId) {

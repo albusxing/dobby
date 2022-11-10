@@ -45,7 +45,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtAuthTokenInterceptor)
-                .addPathPatterns("/api2/**");
+                .addPathPatterns("/api2/**")
+                .excludePathPatterns("/api2/token");
+
     }
 
     @Override

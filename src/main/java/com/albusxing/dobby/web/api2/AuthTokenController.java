@@ -24,7 +24,7 @@ import javax.validation.constraints.NotBlank;
 @Api(tags = "认证授权")
 @RestController
 @Validated
-@RequestMapping("/auth")
+@RequestMapping("/api2")
 @RequiredArgsConstructor
 public class AuthTokenController {
 
