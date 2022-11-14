@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+
+    <changeSet id="20220916114037-1" author="dobby">
+        <createTable tableName="t_auth_client" remarks="第三方客户端授权表">
+            <column name="id" type="bigint" autoIncrement="true" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="client" type="varchar(64)" remarks="客户端编号">
+                <constraints nullable="false" />
+            </column>
+            <column name="secret" type="varchar(64)" remarks="客户端密钥">
+                <constraints nullable="false" />
+            </column>
+            <column name="expiration" type="bigint" remarks="过期时长">
+                <constraints nullable="false" />
+            </column>
+            <column name="secret_key" type="varchar(255)" remarks="加密key">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220916114037-2" author="dobby">
+        <addColumn tableName="t_auth_client">
+            <column name="deleted" type="boolean" defaultValue="false" remarks="删除标志">
+                <constraints nullable="false" />
+            </column>
+            <column name="create_time" type="timestamp" defaultValueDate="${now}" remarks="创建时间">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_time" type="timestamp" remarks="更新时间"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

@@ -173,6 +173,13 @@
             <artifactId>easyexcel</artifactId>
             <version>3.1.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

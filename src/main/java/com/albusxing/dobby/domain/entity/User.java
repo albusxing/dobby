@@ -4,6 +4,8 @@ import com.albusxing.dobby.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
+import java.util.Date;
+
 /**
  * 用户信息
  * @author liguoqing
@@ -17,8 +19,11 @@ public class User extends BaseEntity {
     private String password;
     private Integer gender;
     private Integer age;
-    private String phone;
+    private String mobile;
     private String address;
+    private String email;
+    private Date registerTime;
+    
 
 }
 

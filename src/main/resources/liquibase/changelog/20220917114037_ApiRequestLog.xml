@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+
+    <changeSet id="20220917114037-1" author="dobby">
+        <createTable tableName="t_api_request_log" remarks="接口请求日志">
+            <column name="id" type="bigint" autoIncrement="true" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="func" type="varchar(64)" remarks="模块功能">
+                <constraints nullable="false" />
+            </column>
+            <column name="request_method" type="varchar(255)" remarks="请求方法">
+                <constraints nullable="false" />
+            </column>
+            <column name="request_url" type="varchar(255)" remarks="请求地址">
+                <constraints nullable="false" />
+            </column>
+            <column name="request_params" type="clob" remarks="请求地址">
+                <constraints nullable="true" />
+            </column>
+            <column name="request_time" type="datetime" remarks="请求时间">
+                <constraints nullable="false" />
+            </column>
+            <column name="request_duration" type="bigint" remarks="请求时长">
+                <constraints nullable="false" />
+            </column>
+            <column name="execute_result" type="integer" remarks="执行结果：0成功 1失败">
+                <constraints nullable="false" />
+            </column>
+            <column name="execute_message" type="clob" remarks="执行返回信息">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220917114037-2" author="dobby">
+        <addColumn tableName="t_api_request_log">
+            <column name="deleted" type="boolean" defaultValue="false" remarks="删除标志">
+                <constraints nullable="false" />
+            </column>
+            <column name="create_time" type="timestamp" defaultValueDate="${now}" remarks="创建时间">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_time" type="timestamp" remarks="更新时间"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

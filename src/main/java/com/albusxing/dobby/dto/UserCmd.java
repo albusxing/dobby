@@ -38,10 +38,13 @@ public class UserCmd implements Serializable {
 
     @ApiModelProperty(value = "手机")
     @NotBlank(message = "手机不能为空")
-    private String phone;
+    private String mobile;
 
     @ApiModelProperty(value = "地址")
     private String address;
+
+    @ApiModelProperty(value = "邮箱")
+    private String email;
 
 
 }

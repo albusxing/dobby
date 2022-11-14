@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+
+    <changeSet id="20220915114037-1" author="dobby">
+        <createTable tableName="t_user" remarks="用户表">
+            <column name="id" type="bigint" autoIncrement="true" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(64)" remarks="用户名称">
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="varchar(64)" remarks="密码">
+                <constraints nullable="false" />
+            </column>
+            <column name="gender" type="integer" remarks="性别 0未知 1男 2女">
+                <constraints nullable="false" />
+            </column>
+            <column name="age" type="integer" remarks="年龄">
+                <constraints nullable="true" />
+            </column>
+            <column name="mobile" type="varchar(64)" remarks="电话">
+                <constraints nullable="true" />
+            </column>
+            <column name="email" type="varchar(64)" remarks="邮箱">
+                <constraints nullable="true" />
+            </column>
+            <column name="address" type="varchar(64)" remarks="地址">
+                <constraints nullable="true" />
+            </column>
+            <column name="register_time" type="datetime" remarks="注册时间">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220915114037-2" author="dobby">
+        <addColumn tableName="t_user">
+            <column name="deleted" type="boolean" defaultValue="false" remarks="删除标志">
+                <constraints nullable="false" />
+            </column>
+            <column name="create_time" type="timestamp" defaultValueDate="${now}" remarks="创建时间">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_time" type="timestamp" remarks="更新时间"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
